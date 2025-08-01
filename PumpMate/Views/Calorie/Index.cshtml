@@ -6,17 +6,24 @@
 
 <style>
     .calorie-container {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--body-bg);
         min-height: 100vh;
         padding: 2rem 0;
     }
     
     .calorie-card {
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-hover);
         padding: 2rem;
         margin-bottom: 2rem;
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+    }
+    
+    .calorie-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
     }
     
     .stats-grid {
@@ -27,11 +34,18 @@
     }
     
     .stat-card {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        border-radius: 15px;
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
         padding: 1.5rem;
         text-align: center;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
     }
     
     .stat-number {
@@ -42,255 +56,398 @@
     
     .stat-label {
         font-size: 0.9rem;
-        color: #666;
+        color: var(--text-color);
         font-weight: 500;
+        opacity: 0.8;
     }
     
     .calories-consumed {
-        color: #dc3545;
+        color: var(--accent-color);
     }
     
     .calories-burned {
-        color: #28a745;
+        color: var(--success-color);
     }
     
     .calorie-deficit {
-        color: #ffc107;
+        color: var(--warning-color);
     }
     
     .form-control {
-        border-radius: 12px;
-        border: 2px solid #e9ecef;
-        padding: 12px 15px;
-        transition: all 0.3s ease;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--border-color);
+        padding: 1rem 1.2rem;
+        transition: var(--transition);
+        background: var(--card-bg);
+        color: var(--text-color);
     }
     
     .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        background: var(--card-bg);
+        color: var(--text-color);
+    }
+    
+    .form-control::placeholder {
+        color: var(--text-color);
+        opacity: 0.6;
     }
     
     .btn-add {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         border: none;
-        border-radius: 12px;
-        padding: 12px 25px;
+        border-radius: var(--border-radius);
+        padding: 1rem 2rem;
         font-weight: 600;
-        transition: all 0.3s ease;
+        transition: var(--transition);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     .btn-add:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        box-shadow: var(--shadow-hover);
+        background: var(--accent-color);
     }
     
     .btn-delete {
-        background: #dc3545;
+        background: var(--accent-color);
         border: none;
-        border-radius: 8px;
-        padding: 6px 12px;
-        color: white;
+        border-radius: var(--border-radius);
+        padding: 0.5rem 1rem;
+        color: var(--white);
         font-size: 0.8rem;
-        transition: all 0.3s ease;
+        transition: var(--transition);
     }
     
     .btn-delete:hover {
         background: #c82333;
         transform: translateY(-1px);
+        box-shadow: var(--shadow);
     }
     
-    .entry-item {
-        background: #f8f9fa;
-        border-radius: 10px;
+    .calorie-entry {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
         padding: 1rem;
         margin-bottom: 1rem;
-        border-left: 4px solid #667eea;
+        transition: var(--transition);
     }
     
-    .workout-calorie-item {
-        background: #e8f5e8;
-        border-radius: 10px;
-        padding: 1rem;
-        margin-bottom: 1rem;
-        border-left: 4px solid #28a745;
+    .calorie-entry:hover {
+        transform: translateX(5px);
+        box-shadow: var(--shadow);
     }
     
-    .exercise-calorie-item {
-        background: white;
-        border-radius: 8px;
-        padding: 0.75rem;
+    .entry-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         margin-bottom: 0.5rem;
-        border-left: 3px solid #28a745;
     }
     
-    .alert {
-        border-radius: 12px;
-        border: none;
-        padding: 1rem 1.5rem;
-        margin-bottom: 1.5rem;
+    .entry-title {
+        font-weight: 600;
+        color: var(--text-color);
+        margin: 0;
+    }
+    
+    .entry-calories {
+        font-weight: 700;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+    }
+    
+    .entry-time {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 0.9rem;
+    }
+    
+    .progress-container {
+        background: var(--border-color);
+        border-radius: var(--border-radius);
+        height: 10px;
+        margin: 1rem 0;
+        overflow: hidden;
+    }
+    
+    .progress-bar {
+        height: 100%;
+        border-radius: var(--border-radius);
+        transition: var(--transition);
+    }
+    
+    .progress-consumed {
+        background: var(--accent-color);
+    }
+    
+    .progress-burned {
+        background: var(--success-color);
+    }
+    
+    .progress-deficit {
+        background: var(--warning-color);
+    }
+    
+    .quick-add-section {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border-color);
+    }
+    
+    .quick-add-btn {
+        background: var(--hover-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 0.8rem 1.2rem;
+        color: var(--text-color);
+        text-decoration: none;
+        transition: var(--transition);
+        display: inline-block;
+        margin: 0.5rem;
+        font-size: 0.9rem;
+    }
+    
+    .quick-add-btn:hover {
+        background: var(--primary-color);
+        color: var(--white);
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+    
+    .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--text-color);
+    }
+    
+    .empty-state i {
+        font-size: 4rem;
+        opacity: 0.5;
+        margin-bottom: 1rem;
+    }
+    
+    .workout-calories {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1rem;
+        margin-bottom: 1rem;
+        transition: var(--transition);
+    }
+    
+    .workout-calories:hover {
+        transform: translateX(5px);
+        box-shadow: var(--shadow);
+    }
+    
+    .workout-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .workout-type {
+        font-weight: 600;
+        color: var(--success-color);
+        margin: 0;
+    }
+    
+    .workout-calories-burned {
+        font-weight: 700;
+        color: var(--success-color);
+        font-size: 1.1rem;
+    }
+    
+    .workout-date {
+        color: var(--text-color);
+        opacity: 0.7;
+        font-size: 0.9rem;
+    }
+    
+    @@media (max-width: 768px) {
+        .stats-grid {
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        }
+        
+        .entry-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
     }
 </style>
 
 <div class="calorie-container">
     <div class="container">
         <!-- Başlık -->
-        <div class="calorie-card">
-            <div class="text-center mb-4">
-                <h2><i class="fas fa-fire me-2"></i>Kalori Takibi</h2>
-                <p class="text-muted">Günlük kalori alımınızı ve antrenmanlarda yaktığınız kalorileri takip edin</p>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="mb-0">
+                            🔥 Kalori Takibi
+                        </h2>
+                        <p class="text-muted mb-0">Günlük kalori alımınızı ve yakımınızı takip edin</p>
+                    </div>
+                </div>
             </div>
+        </div>
 
-            @if (TempData["Message"] != null)
-            {
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle me-2"></i>@TempData["Message"]
-                </div>
-            }
+        <!-- İstatistikler -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number calories-consumed">@Model.TotalCaloriesConsumed</div>
+                <div class="stat-label">Tüketilen Kalori</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number calories-burned">@Model.TotalCaloriesBurned</div>
+                <div class="stat-label">Yakılan Kalori</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number calorie-deficit">@Model.CalorieDeficit</div>
+                <div class="stat-label">Kalori Açığı</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">@Model.DailyGoal</div>
+                <div class="stat-label">Günlük Hedef</div>
+            </div>
+        </div>
 
-            <!-- İstatistikler -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number calories-consumed">@Model.TotalCaloriesConsumed</div>
-                    <div class="stat-label">Günlük Alınan Kalori</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number calories-burned">@Model.TotalCaloriesBurned</div>
-                    <div class="stat-label">Günlük Yakılan Kalori</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number calorie-deficit">@Model.CalorieDeficit</div>
-                    <div class="stat-label">Günlük Kalori Açığı</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">@Model.WeeklyCalorieDeficit</div>
-                    <div class="stat-label">Haftalık Kalori Açığı</div>
-                </div>
+        <!-- İlerleme Çubuğu -->
+        <div class="calorie-card">
+            <h4 class="mb-3">
+                📊 Günlük İlerleme
+            </h4>
+            <div class="progress-container">
+                <div class="progress-bar progress-consumed" style="width: @(Model.TotalCaloriesConsumed > Model.DailyGoal ? 100 : (Model.TotalCaloriesConsumed * 100 / Model.DailyGoal))%"></div>
+            </div>
+            <div class="d-flex justify-content-between mt-2">
+                <small class="text-muted">0</small>
+                <small class="text-muted">@Model.DailyGoal kalori</small>
+            </div>
+        </div>
+
+        <!-- Hızlı Ekleme -->
+        <div class="quick-add-section">
+            <h4 class="mb-3">
+                ⚡ Hızlı Ekleme
+            </h4>
+            <div class="text-center">
+                <a href="#" class="quick-add-btn" onclick="quickAdd(100, 'Su')">
+                    💧 Su
+                </a>
+                <a href="#" class="quick-add-btn" onclick="quickAdd(50, 'Kahve')">
+                    ☕ Kahve
+                </a>
+                <a href="#" class="quick-add-btn" onclick="quickAdd(200, 'Meyve')">
+                    🍎 Meyve
+                </a>
+                <a href="#" class="quick-add-btn" onclick="quickAdd(300, 'Sandviç')">
+                    🥪 Sandviç
+                </a>
+                <a href="#" class="quick-add-btn" onclick="quickAdd(500, 'Ana Yemek')">
+                    🍽️ Ana Yemek
+                </a>
             </div>
         </div>
 
         <!-- Kalori Ekleme Formu -->
         <div class="calorie-card">
-            <h4><i class="fas fa-plus me-2"></i>Yeni Kalori Girişi</h4>
-            <form asp-action="AddEntry" method="post">
+            <h4 class="mb-3">
+                ➕ Yeni Kalori Ekle
+            </h4>
+            <form asp-action="AddCalorieEntry" method="post">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-utensils me-2"></i>Yemek Adı
-                            </label>
-                            <input name="FoodName" class="form-control" placeholder="Örn: Tavuk Göğsü" required />
-                        </div>
+                    <div class="col-md-5 mb-3">
+                        <input name="FoodName" class="form-control" placeholder="Yiyecek/İçecek adı" required />
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-fire me-2"></i>Kalori
-                            </label>
-                            <input name="Calories" class="form-control" type="number" placeholder="250" required />
-                        </div>
+                    <div class="col-md-3 mb-3">
+                        <input name="Calories" type="number" class="form-control" placeholder="Kalori" required />
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="form-label">
-                                <i class="fas fa-weight me-2"></i>Miktar (g)
-                            </label>
-                            <input name="Quantity" class="form-control" type="number" placeholder="100" />
-                        </div>
+                    <div class="col-md-2 mb-3">
+                        <input type="text" class="form-control" value="Tüketilen" readonly />
                     </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="form-label">&nbsp;</label>
-                            <button type="submit" class="btn btn-add text-white w-100">
-                                <i class="fas fa-plus me-2"></i>Ekle
-                            </button>
-                        </div>
+                    <div class="col-md-2 mb-3">
+                        <button type="submit" class="btn btn-add text-white w-100">
+                            ➕ Ekle
+                        </button>
                     </div>
                 </div>
             </form>
         </div>
 
-        <!-- Günlük Kalori Girişleri -->
+        <!-- Antrenman Kalorileri -->
+        @if (Model.TotalCaloriesBurned > 0)
+        {
+            <div class="calorie-card">
+                <h4 class="mb-3">
+                    💪 Bugünkü Antrenman Kalorileri
+                </h4>
+                <div class="workout-calories">
+                    <div class="workout-header">
+                        <h6 class="workout-type">Antrenman</h6>
+                        <span class="workout-calories-burned">-@Model.TotalCaloriesBurned kcal</span>
+                    </div>
+                    <div class="workout-date">Bugün yapılan antrenmanlardan yakılan toplam kalori</div>
+                </div>
+            </div>
+        }
+
+        <!-- Kalori Girişleri -->
         <div class="calorie-card">
-            <h4><i class="fas fa-list me-2"></i>Bugünkü Kalori Girişleri</h4>
-            @if (Model.CalorieEntries.Any())
+            <h4 class="mb-3">
+                📋 Günlük Girişler
+            </h4>
+            
+            @if (!Model.CalorieEntries.Any())
             {
-                @foreach (var entry in Model.CalorieEntries)
-                {
-                    <div class="entry-item">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong class="text-primary">@entry.FoodName</strong>
-                                @if (entry.Quantity.HasValue)
-                                {
-                                    <small class="text-muted ms-2">(@entry.Quantity g)</small>
-                                }
-                                @if (!string.IsNullOrEmpty(entry.Notes))
-                                {
-                                    <small class="text-muted ms-2">- @entry.Notes</small>
-                                }
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <span class="badge bg-danger me-2">@entry.Calories kcal</span>
-                                <form asp-action="DeleteEntry" method="post" style="display: inline;">
+                <div class="empty-state">
+                    <h5>Henüz kalori girişi yapılmamış</h5>
+                    <p class="text-muted">İlk kalori girişinizi yaparak takibe başlayın!</p>
+                </div>
+            }
+            else
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="mb-3">
+                            🍽️ Tüketilen
+                        </h5>
+                        @foreach (var entry in Model.CalorieEntries)
+                        {
+                            <div class="calorie-entry">
+                                <div class="entry-header">
+                                    <h6 class="entry-title">@entry.FoodName</h6>
+                                    <span class="entry-calories">+@entry.Calories kcal</span>
+                                </div>
+                                <div class="entry-time">@entry.Date.ToString("HH:mm")</div>
+                                <form asp-action="DeleteCalorieEntry" method="post" style="display: inline;">
                                     <input type="hidden" name="id" value="@entry.Id" />
-                                    <button type="submit" class="btn btn-delete" onclick="return confirm('Bu kalori girişini silmek istediğinizden emin misiniz?')">
-                                        <i class="fas fa-trash"></i>
+                                    <button type="submit" class="btn btn-delete btn-sm" onclick="return confirm('Bu girişi silmek istediğinizden emin misiniz?')">
+                                        🗑️
                                     </button>
                                 </form>
                             </div>
-                        </div>
-                    </div>
-                }
-            }
-            else
-            {
-                <div class="text-center text-muted py-4">
-                    <i class="fas fa-utensils fa-3x mb-3"></i>
-                    <p>Henüz bugün için kalori girişi yapılmamış</p>
-                </div>
-            }
-        </div>
-
-        <!-- Antrenman Kalori Hesaplamaları -->
-        <div class="calorie-card">
-            <h4><i class="fas fa-dumbbell me-2"></i>Antrenman Kalori Hesaplamaları</h4>
-            @if (Model.WorkoutCalories.Any())
-            {
-                @foreach (var workout in Model.WorkoutCalories.Take(5))
-                {
-                    <div class="workout-calorie-item">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div>
-                                <strong class="text-success">@workout.Date.ToShortDateString() - @workout.WorkoutType</strong>
-                            </div>
-                            <span class="badge bg-success">@workout.TotalCaloriesBurned kcal yakıldı</span>
-                        </div>
-                        @foreach (var exercise in workout.Exercises)
-                        {
-                            <div class="exercise-calorie-item">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <strong>@exercise.ExerciseName</strong>
-                                        <small class="text-muted ms-2">@exercise.SetCount set x @exercise.Reps tekrar</small>
-                                        @if (exercise.Weight.HasValue)
-                                        {
-                                            <small class="text-muted ms-2">(@exercise.Weight kg)</small>
-                                        }
-                                    </div>
-                                    <span class="badge bg-info">@exercise.CaloriesBurned kcal</span>
-                                </div>
-                            </div>
                         }
                     </div>
-                }
-            }
-            else
-            {
-                <div class="text-center text-muted py-4">
-                    <i class="fas fa-dumbbell fa-3x mb-3"></i>
-                    <p>Henüz antrenman kaydı bulunmuyor</p>
                 </div>
             }
         </div>
     </div>
-</div> 
+</div>
+
+<script>
+function quickAdd(calories, foodName) {
+    document.querySelector('input[name="FoodName"]').value = foodName;
+    document.querySelector('input[name="Calories"]').value = calories;
+    document.querySelector('input[name="FoodName"]').focus();
+}
+</script> 

@@ -6,18 +6,25 @@
 
 <style>
     .profile-container {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--body-bg);
         min-height: 100vh;
         padding: 2rem 0;
     }
     
     .profile-card {
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-hover);
         padding: 2.5rem;
         max-width: 600px;
         margin: 0 auto;
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+    }
+    
+    .profile-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
     }
     
     .profile-header {
@@ -29,28 +36,35 @@
     .profile-avatar {
         width: 100px;
         height: 100px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto 1rem;
-        color: white;
+        color: var(--white);
         font-size: 2.5rem;
-        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+    }
+    
+    .profile-avatar:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-hover);
     }
     
     .profile-header h2 {
-        color: #333;
+        color: var(--text-color);
         font-weight: 700;
         margin-bottom: 0.5rem;
         font-size: 2rem;
     }
     
     .profile-header p {
-        color: #666;
+        color: var(--text-color);
         font-size: 1rem;
         margin-bottom: 0;
+        opacity: 0.8;
     }
     
     .form-group {
@@ -59,76 +73,100 @@
     
     .form-label {
         font-weight: 600;
-        color: #333;
+        color: var(--text-color);
         margin-bottom: 0.5rem;
         display: block;
     }
     
     .form-control {
-        border-radius: 12px;
-        border: 2px solid #e9ecef;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--border-color);
         padding: 15px 20px;
         font-size: 1rem;
-        transition: all 0.3s ease;
-        background-color: #f8f9fa;
+        transition: var(--transition);
+        background: var(--card-bg);
+        color: var(--text-color);
     }
     
     .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-        background-color: white;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        background: var(--card-bg);
+        color: var(--text-color);
+    }
+    
+    .form-control::placeholder {
+        color: var(--text-color);
+        opacity: 0.6;
     }
     
     .btn-update {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         border: none;
-        border-radius: 12px;
+        border-radius: var(--border-radius);
         padding: 15px 30px;
         font-weight: 600;
         font-size: 1rem;
-        transition: all 0.3s ease;
+        transition: var(--transition);
         width: 100%;
         margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     .btn-update:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        box-shadow: var(--shadow-hover);
+        background: var(--accent-color);
     }
     
     .btn-home {
-        background: #6c757d;
-        border: none;
-        border-radius: 12px;
+        background: var(--hover-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
         padding: 12px 25px;
         font-weight: 600;
-        transition: all 0.3s ease;
+        transition: var(--transition);
         width: 100%;
+        color: var(--text-color);
+        text-decoration: none;
+        display: block;
+        text-align: center;
     }
     
     .btn-home:hover {
-        background: #5a6268;
+        background: var(--primary-color);
+        color: var(--white);
         transform: translateY(-1px);
+        text-decoration: none;
     }
     
     .alert {
-        border-radius: 12px;
+        border-radius: var(--border-radius);
         border: none;
         padding: 1rem 1.5rem;
         margin-bottom: 1.5rem;
     }
     
     .alert-success {
-        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-        color: #155724;
-        border-left: 4px solid #28a745;
+        background: var(--success-color);
+        color: var(--white);
+        border-left: 4px solid var(--success-color);
     }
     
     .stats-section {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        border-radius: 15px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
         padding: 1.5rem;
         margin-bottom: 2rem;
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+    }
+    
+    .stats-section:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
     }
     
     .stats-grid {
@@ -141,22 +179,52 @@
     .stat-item {
         text-align: center;
         padding: 1rem;
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow);
+        transition: var(--transition);
+    }
+    
+    .stat-item:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-hover);
     }
     
     .stat-number {
         font-size: 1.5rem;
         font-weight: 700;
-        color: #667eea;
+        color: var(--primary-color);
         margin-bottom: 0.25rem;
     }
     
     .stat-label {
         font-size: 0.85rem;
-        color: #666;
+        color: var(--text-color);
         font-weight: 500;
+        opacity: 0.8;
+    }
+    
+    .text-muted {
+        color: var(--text-color) !important;
+        opacity: 0.6;
+        font-size: 0.85rem;
+        margin-top: 0.5rem;
+        display: block;
+    }
+    
+    @@media (max-width: 768px) {
+        .profile-container {
+            padding: 1rem;
+        }
+        
+        .profile-card {
+            padding: 2rem;
+        }
+        
+        .stats-grid {
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        }
     }
 </style>
 
@@ -165,22 +233,22 @@
         <div class="profile-card">
             <div class="profile-header">
                 <div class="profile-avatar">
-                    <i class="fas fa-user"></i>
+                    👤
                 </div>
-                <h2><i class="fas fa-user-circle me-2"></i>Profil Bilgilerim</h2>
+                <h2>👤 Profil Bilgilerim</h2>
                 <p>Hesap bilgilerinizi güncelleyin ve fitness yolculuğunuzu takip edin</p>
             </div>
 
             @if (ViewBag.Message != null)
             {
                 <div class="alert alert-success">
-                    <i class="fas fa-check-circle me-2"></i>@ViewBag.Message
+                    ✅ @ViewBag.Message
                 </div>
             }
 
             <!-- İstatistikler Bölümü -->
             <div class="stats-section">
-                <h4><i class="fas fa-chart-line me-2"></i>Fitness İstatistikleriniz</h4>
+                <h4>📊 Fitness İstatistikleriniz</h4>
                 <div class="stats-grid">
                     <div class="stat-item">
                         <div class="stat-number">@ViewBag.TotalWorkouts</div>
@@ -204,28 +272,28 @@
             <form asp-action="Update" method="post">
                 <div class="form-group">
                     <label class="form-label">
-                        <i class="fas fa-user me-2"></i>Kullanıcı Adı
+                        👤 Kullanıcı Adı
                     </label>
                     <input asp-for="Username" class="form-control" placeholder="Kullanıcı adınızı girin" />
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">
-                        <i class="fas fa-lock me-2"></i>Yeni Şifre (opsiyonel)
+                        🔒 Yeni Şifre (opsiyonel)
                     </label>
                     <input name="newPassword" type="password" class="form-control" placeholder="Yeni şifrenizi girin" />
                     <small class="text-muted">
-                        <i class="fas fa-info-circle me-1"></i>Şifrenizi değiştirmek istemiyorsanız boş bırakın
+                        ℹ️ Şifrenizi değiştirmek istemiyorsanız boş bırakın
                     </small>
                 </div>
 
                 <button type="submit" class="btn btn-update text-white">
-                    <i class="fas fa-save me-2"></i>Profil Bilgilerini Güncelle
+                    💾 Profil Bilgilerini Güncelle
                 </button>
             </form>
 
-            <a href="@Url.Action("Index", "Home")" class="btn btn-home text-white">
-                <i class="fas fa-home me-2"></i>Ana Sayfaya Dön
+            <a href="@Url.Action("Index", "Home")" class="btn btn-home">
+                🏠 Ana Sayfaya Dön
             </a>
         </div>
     </div>

@@ -9,6 +9,7 @@ namespace PumpMate.Models
         public int TotalCaloriesConsumed { get; set; }
         public int TotalCaloriesBurned { get; set; }
         public int CalorieDeficit { get; set; }
+        public int DailyGoal { get; set; } = 700; // Varsayılan günlük kalori hedefi
         
         // Haftalık istatistikler
         public int WeeklyCaloriesConsumed { get; set; }

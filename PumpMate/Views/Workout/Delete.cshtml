@@ -6,7 +6,7 @@
 
 <div class="page-header">
     <div class="container">
-        <h1><i class="fas fa-trash me-3"></i>Antrenman Sil</h1>
+        <h1>🗑️ Antrenman Sil</h1>
         <p>Bu işlem geri alınamaz, lütfen dikkatli olun</p>
     </div>
 </div>
@@ -16,38 +16,35 @@
         <div class="col-lg-8">
             <div class="card border-danger">
                 <div class="card-header bg-danger text-white">
-                    <h3><i class="fas fa-exclamation-triangle me-2"></i>Dikkat!</h3>
+                    <h3>⚠️ Dikkat!</h3>
                 </div>
                 <div class="card-body">
                     <div class="alert alert-warning">
-                        <i class="fas fa-exclamation-circle me-2"></i>
+                        ⚠️
                         <strong>Bu antrenmanı silmek istediğinizden emin misiniz?</strong>
                         <p class="mb-0 mt-2">Bu işlem geri alınamaz ve antrenman verileriniz kalıcı olarak silinecektir.</p>
                     </div>
 
                     <div class="card mb-4">
                         <div class="card-header">
-                            <h4><i class="fas fa-info-circle me-2"></i>Silinecek Antrenman Bilgileri</h4>
+                            <h4>ℹ️ Silinecek Antrenman Bilgileri</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="text-center p-3">
-                                        <i class="fas fa-calendar-day fa-2x text-primary mb-2"></i>
                                         <h6>Tarih</h6>
                                         <p class="mb-0">@Model.Date.ToShortDateString()</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="text-center p-3">
-                                        <i class="fas fa-@(Model.WorkoutType == "Gym" ? "building" : "home") fa-2x text-success mb-2"></i>
                                         <h6>Tür</h6>
                                         <p class="mb-0">@Model.WorkoutType</p>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="text-center p-3">
-                                        <i class="fas fa-sticky-note fa-2x text-warning mb-2"></i>
                                         <h6>Notlar</h6>
                                         <p class="mb-0">@(string.IsNullOrEmpty(Model.Notes) ? "Not yok" : Model.Notes)</p>
                                     </div>
@@ -61,10 +58,10 @@
                         
                         <div class="text-center">
                             <button type="submit" class="btn btn-danger btn-lg me-3">
-                                <i class="fas fa-trash me-2"></i>Evet, Sil
+                                🗑️ Evet, Sil
                             </button>
                             <a asp-action="Index" class="btn btn-secondary btn-lg">
-                                <i class="fas fa-arrow-left me-2"></i>İptal
+                                ⬅️ İptal
                             </a>
                         </div>
                     </form>
@@ -74,24 +71,22 @@
             <!-- Alternatif Öneriler -->
             <div class="card mt-4">
                 <div class="card-header">
-                    <h4><i class="fas fa-lightbulb me-2"></i>Alternatif Öneriler</h4>
+                    <h4>💡 Alternatif Öneriler</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex align-items-start mb-3">
-                                <i class="fas fa-edit text-primary me-2 mt-1"></i>
                                 <div>
-                                    <strong>Düzenleme:</strong>
+                                    <strong>✏️ Düzenleme:</strong>
                                     <p class="small text-muted mb-0">Antrenmanı silmek yerine düzenleyebilirsiniz.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex align-items-start mb-3">
-                                <i class="fas fa-archive text-warning me-2 mt-1"></i>
                                 <div>
-                                    <strong>Arşivleme:</strong>
+                                    <strong>📦 Arşivleme:</strong>
                                     <p class="small text-muted mb-0">Gelecekte referans için saklayabilirsiniz.</p>
                                 </div>
                             </div>
@@ -99,7 +94,7 @@
                     </div>
                     <div class="text-center mt-3">
                         <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-primary">
-                            <i class="fas fa-edit me-2"></i>Düzenle
+                            ✏️ Düzenle
                         </a>
                     </div>
                 </div>

@@ -4,133 +4,232 @@
 
 <style>
     .login-container {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--body-bg);
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 2rem;
     }
     
     .login-card {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        padding: 2rem;
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-hover);
+        padding: 2.5rem;
         width: 100%;
-        max-width: 400px;
+        max-width: 450px;
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+    }
+    
+    .login-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
     }
     
     .login-header {
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
     
     .login-header h2 {
-        color: #333;
-        font-weight: 600;
+        color: var(--text-color);
+        font-weight: 700;
         margin-bottom: 0.5rem;
+        font-size: 2rem;
     }
     
     .login-header p {
-        color: #666;
-        font-size: 0.9rem;
+        color: var(--text-color);
+        font-size: 1rem;
+        opacity: 0.8;
     }
     
     .form-control {
-        border-radius: 8px;
-        border: 2px solid #e9ecef;
-        padding: 12px 15px;
-        transition: all 0.3s ease;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--border-color);
+        padding: 1rem 1.2rem;
+        transition: var(--transition);
+        background: var(--card-bg);
+        color: var(--text-color);
+        font-size: 1rem;
     }
     
     .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        background: var(--card-bg);
+        color: var(--text-color);
+    }
+    
+    .form-control::placeholder {
+        color: var(--text-color);
+        opacity: 0.6;
     }
     
     .btn-login {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         border: none;
-        border-radius: 8px;
-        padding: 12px;
+        border-radius: var(--border-radius);
+        padding: 1rem;
         font-weight: 600;
-        transition: all 0.3s ease;
+        font-size: 1.1rem;
+        transition: var(--transition);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     .btn-login:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        box-shadow: var(--shadow-hover);
+        background: var(--accent-color);
     }
     
     .forgot-links {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-top: 1.5rem;
-        padding-top: 1rem;
-        border-top: 1px solid #e9ecef;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+        flex-wrap: wrap;
+        gap: 1rem;
     }
     
     .forgot-link {
-        color: #667eea;
+        color: var(--primary-color);
         text-decoration: none;
-        font-size: 0.85rem;
-        transition: all 0.3s ease;
-        padding: 8px 12px;
-        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: var(--transition);
+        padding: 0.5rem 1rem;
+        border-radius: var(--border-radius);
+        background: var(--hover-bg);
+        border: 1px solid var(--border-color);
     }
     
     .forgot-link:hover {
-        color: #764ba2;
-        background-color: rgba(102, 126, 234, 0.1);
+        color: var(--white);
+        background: var(--primary-color);
         text-decoration: none;
+        transform: translateY(-1px);
     }
     
     .alert {
-        border-radius: 8px;
+        border-radius: var(--border-radius);
         border: none;
+        padding: 1rem 1.5rem;
+        margin-top: 1.5rem;
+    }
+    
+    .login-footer {
+        text-align: center;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
+    }
+    
+    .register-link {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: 600;
+        transition: var(--transition);
+    }
+    
+    .register-link:hover {
+        color: var(--accent-color);
+        text-decoration: none;
+    }
+    
+    .input-group {
+        position: relative;
+        margin-bottom: 1.5rem;
+    }
+    
+    .input-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-color);
+        opacity: 0.6;
+        z-index: 10;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .input-with-icon {
+        padding-left: 3rem;
+    }
+    
+    @@media (max-width: 576px) {
+        .login-container {
+            padding: 1rem;
+        }
+        
+        .login-card {
+            padding: 2rem;
+        }
+        
+        .forgot-links {
+            flex-direction: column;
+            text-align: center;
+        }
     }
 </style>
 
 <div class="login-container">
     <div class="login-card">
         <div class="login-header">
-            <h2><i class="fas fa-dumbbell me-2"></i>PumpMate</h2>
+            <h2>
+                💪 PumpMate
+            </h2>
             <p>Fitness yolculuğunuza hoş geldiniz</p>
         </div>
         
         <form asp-action="Login" method="post">
-            <div class="form-group mb-3">
-                <label for="username" class="form-label">
-                    <i class="fas fa-user me-2"></i>Kullanıcı Adı
-                </label>
-                <input name="username" id="username" class="form-control" placeholder="Kullanıcı adınızı girin" />
+            <div class="input-group">
+                <div class="input-icon">👤</div>
+                <input name="username" id="username" class="form-control input-with-icon" placeholder="Kullanıcı adınızı girin" required />
             </div>
-            <div class="form-group mb-3">
-                <label for="password" class="form-label">
-                    <i class="fas fa-lock me-2"></i>Şifre
-                </label>
-                <input name="password" id="password" type="password" class="form-control" placeholder="Şifrenizi girin" />
+            
+            <div class="input-group">
+                <div class="input-icon">🔒</div>
+                <input name="password" id="password" type="password" class="form-control input-with-icon" placeholder="Şifrenizi girin" required />
             </div>
+            
             <button type="submit" class="btn btn-login text-white w-100">
-                <i class="fas fa-sign-in-alt me-2"></i>Giriş Yap
+                🔑 Giriş Yap
             </button>
         </form>
 
         <div class="forgot-links">
             <a asp-action="ForgotUsername" asp-controller="Auth" class="forgot-link">
-                <i class="fas fa-user-times me-1"></i>Kullanıcı adını mı unuttun?
+                ❓ Kullanıcı adını mı unuttun?
             </a>
             <a asp-action="ForgotPassword" asp-controller="Auth" class="forgot-link">
-                <i class="fas fa-key me-1"></i>Şifreni mi unuttun?
+                🔑 Şifreni mi unuttun?
             </a>
         </div>
 
         @if (ViewBag.Error != null)
         {
-            <div class="alert alert-danger mt-3">
-                <i class="fas fa-exclamation-triangle me-2"></i>@ViewBag.Error
+            <div class="alert alert-danger">
+                ⚠️ @ViewBag.Error
             </div>
         }
+        
+        <div class="login-footer">
+            <p class="mb-0">
+                Hesabınız yok mu? 
+                <a asp-action="Register" asp-controller="Auth" class="register-link">
+                    📝 Kayıt Ol
+                </a>
+            </p>
+        </div>
     </div>
 </div>

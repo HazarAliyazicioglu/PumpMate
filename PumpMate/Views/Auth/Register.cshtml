@@ -6,151 +6,314 @@
 
 <style>
     .register-container {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--body-bg);
         min-height: 100vh;
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 2rem;
     }
     
     .register-card {
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        padding: 2rem;
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-hover);
+        padding: 2.5rem;
         width: 100%;
-        max-width: 400px;
+        max-width: 500px;
+        border: 1px solid var(--border-color);
+        transition: var(--transition);
+    }
+    
+    .register-card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-hover);
     }
     
     .register-header {
         text-align: center;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
     }
     
     .register-header h2 {
-        color: #333;
-        font-weight: 600;
+        color: var(--text-color);
+        font-weight: 700;
         margin-bottom: 0.5rem;
+        font-size: 2rem;
     }
     
     .register-header p {
-        color: #666;
-        font-size: 0.9rem;
+        color: var(--text-color);
+        font-size: 1rem;
+        opacity: 0.8;
     }
     
     .form-control {
-        border-radius: 8px;
-        border: 2px solid #e9ecef;
-        padding: 12px 15px;
-        transition: all 0.3s ease;
+        border-radius: var(--border-radius);
+        border: 2px solid var(--border-color);
+        padding: 1rem 1.2rem;
+        transition: var(--transition);
+        background: var(--card-bg);
+        color: var(--text-color);
+        font-size: 1rem;
+        width: 100%;
     }
     
     .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+        background: var(--card-bg);
+        color: var(--text-color);
+    }
+    
+    .form-control::placeholder {
+        color: var(--text-color);
+        opacity: 0.6;
     }
     
     .btn-register {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: var(--gradient-primary);
         border: none;
-        border-radius: 8px;
-        padding: 12px;
+        border-radius: var(--border-radius);
+        padding: 1rem;
         font-weight: 600;
-        transition: all 0.3s ease;
+        font-size: 1.1rem;
+        transition: var(--transition);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
     
     .btn-register:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        box-shadow: var(--shadow-hover);
+        background: var(--accent-color);
     }
     
     .login-link {
         text-align: center;
-        margin-top: 1.5rem;
-        padding-top: 1rem;
-        border-top: 1px solid #e9ecef;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border-color);
     }
     
     .login-link a {
-        color: #667eea;
+        color: var(--primary-color);
         text-decoration: none;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-        padding: 8px 16px;
-        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: var(--transition);
+        padding: 0.8rem 1.5rem;
+        border-radius: var(--border-radius);
         display: inline-block;
+        background: var(--hover-bg);
+        border: 1px solid var(--border-color);
     }
     
     .login-link a:hover {
-        color: #764ba2;
-        background-color: rgba(102, 126, 234, 0.1);
+        color: var(--white);
+        background: var(--primary-color);
         text-decoration: none;
+        transform: translateY(-1px);
     }
     
     .alert {
-        border-radius: 8px;
+        border-radius: var(--border-radius);
         border: none;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1.5rem;
     }
     
     .validation-summary {
-        background-color: #f8d7da;
-        color: #721c24;
-        border: 1px solid #f5c6cb;
-        border-radius: 8px;
-        padding: 12px;
-        margin-bottom: 1rem;
+        background-color: var(--accent-color);
+        color: var(--white);
+        border: 1px solid var(--accent-color);
+        border-radius: var(--border-radius);
+        padding: 1rem;
+        margin-bottom: 1.5rem;
     }
     
-    .field-validation-error {
-        color: #dc3545;
+    .input-group {
+        position: relative;
+        margin-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .input-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-color);
+        opacity: 0.6;
+        z-index: 10;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .input-with-icon {
+        padding-left: 3rem;
+    }
+    
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .password-strength {
+        margin-top: 0.5rem;
+        font-size: 0.85rem;
+    }
+    
+    .strength-weak { color: var(--accent-color); }
+    .strength-medium { color: var(--warning-color); }
+    .strength-strong { color: var(--success-color); }
+    
+    .text-danger {
+        color: var(--accent-color) !important;
         font-size: 0.85rem;
         margin-top: 0.25rem;
+        display: block;
+    }
+    
+    .field-error {
+        color: var(--accent-color);
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        display: block;
+        padding: 0.25rem 0.5rem;
+        background-color: rgba(220, 53, 69, 0.1);
+        border-radius: 0.25rem;
+        border-left: 3px solid var(--accent-color);
+    }
+    
+    .field-container {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1.5rem;
+    }
+    
+    .input-wrapper {
+        position: relative;
+    }
+    
+    @@media (max-width: 576px) {
+        .register-container {
+            padding: 1rem;
+        }
+        
+        .register-card {
+            padding: 2rem;
+        }
+        
+        .form-row {
+            grid-template-columns: 1fr;
+        }
     }
 </style>
 
 <div class="register-container">
     <div class="register-card">
         <div class="register-header">
-            <h2><i class="fas fa-user-plus me-2"></i>PumpMate</h2>
-            <p>Fitness yolculuğunuza başlayın</p>
+            <h2>
+                📝 Kayıt Ol
+            </h2>
+            <p>PumpMate'e katılın ve fitness yolculuğunuza başlayın</p>
         </div>
         
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="validation-summary">
+                ⚠️
+                Lütfen aşağıdaki hataları düzeltin:
+                <ul class="mb-0 mt-2">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <li>@error.ErrorMessage</li>
+                    }
+                </ul>
+            </div>
+        }
+        
         <form asp-action="Register" method="post">
-            <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
-            
-            <div class="form-group mb-3">
-                <label asp-for="Username" class="form-label">
-                    <i class="fas fa-user me-2"></i>Kullanıcı Adı
-                </label>
-                <input asp-for="Username" class="form-control" placeholder="Kullanıcı adınızı girin" />
-                <span asp-validation-for="Username" class="field-validation-error"></span>
+            <div class="field-container">
+                <div class="input-wrapper">
+                    <div class="input-icon">👤</div>
+                    <input asp-for="Username" class="form-control input-with-icon" placeholder="Kullanıcı adı" required />
+                </div>
+                <span asp-validation-for="Username" class="field-error"></span>
             </div>
             
-            <div class="form-group mb-3">
-                <label asp-for="Password" class="form-label">
-                    <i class="fas fa-lock me-2"></i>Şifre
-                </label>
-                <input asp-for="Password" class="form-control" type="password" placeholder="Güçlü bir şifre oluşturun" />
-                <span asp-validation-for="Password" class="field-validation-error"></span>
+            <div class="form-row">
+                <div class="field-container">
+                    <div class="input-wrapper">
+                        <div class="input-icon">🔒</div>
+                        <input asp-for="Password" type="password" class="form-control input-with-icon" placeholder="Şifre" required />
+                    </div>
+                    <span asp-validation-for="Password" class="field-error"></span>
+                    <div class="password-strength" id="passwordStrength"></div>
+                </div>
+                
+                <div class="field-container">
+                    <div class="input-wrapper">
+                        <div class="input-icon">🔒</div>
+                        <input name="ConfirmPassword" type="password" class="form-control input-with-icon" placeholder="Şifre tekrar" required />
+                    </div>
+                    @if (ViewData.ModelState["ConfirmPassword"]?.Errors.Count > 0)
+                    {
+                        <span class="field-error">@ViewData.ModelState["ConfirmPassword"].Errors.First().ErrorMessage</span>
+                    }
+                </div>
             </div>
             
             <button type="submit" class="btn btn-register text-white w-100">
-                <i class="fas fa-user-plus me-2"></i>Kayıt Ol
+                📝 Hesap Oluştur
             </button>
         </form>
 
         <div class="login-link">
-            <span class="text-muted">Zaten hesabınız var mı? </span>
-            <a asp-action="Login" asp-controller="Auth">
-                <i class="fas fa-sign-in-alt me-1"></i>Giriş Yap
-            </a>
+            <p class="mb-0">
+                Zaten hesabınız var mı? 
+                <a asp-action="Login" asp-controller="Auth">
+                    🔑 Giriş Yap
+                </a>
+            </p>
         </div>
-
-        @if (ViewBag.Error != null)
-        {
-            <div class="alert alert-danger mt-3">
-                <i class="fas fa-exclamation-triangle me-2"></i>@ViewBag.Error
-            </div>
-        }
     </div>
 </div>
+
+<script>
+document.getElementById('Password').addEventListener('input', function() {
+    const password = this.value;
+    const strengthDiv = document.getElementById('passwordStrength');
+    
+    let strength = 0;
+    let message = '';
+    let className = '';
+    
+    if (password.length >= 8) strength++;
+    if (/[a-z]/.test(password)) strength++;
+    if (/[A-Z]/.test(password)) strength++;
+    if (/[0-9]/.test(password)) strength++;
+    if (/[^A-Za-z0-9]/.test(password)) strength++;
+    
+    if (strength < 3) {
+        message = 'Zayıf şifre';
+        className = 'strength-weak';
+    } else if (strength < 4) {
+        message = 'Orta güçlükte şifre';
+        className = 'strength-medium';
+    } else {
+        message = 'Güçlü şifre';
+        className = 'strength-strong';
+    }
+    
+    strengthDiv.textContent = message;
+    strengthDiv.className = 'password-strength ' + className;
+});
+</script>

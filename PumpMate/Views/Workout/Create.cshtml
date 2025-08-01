@@ -27,7 +27,7 @@
         <div class="col-lg-10">
             <div class="card">
                 <div class="card-header">
-                    <h3><i class="fas fa-dumbbell me-2"></i>Antrenman Bilgileri</h3>
+                    <h3>💪 Antrenman Bilgileri</h3>
                 </div>
                 <div class="card-body">
                     <form asp-action="Create" method="post">
@@ -35,7 +35,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label asp-for="Date" class="form-label">
-                                        <i class="fas fa-calendar me-2"></i>Tarih
+                                        📅 Tarih
                                     </label>
                                     <input asp-for="Date" class="form-control" type="date" />
                                     <span asp-validation-for="Date" class="text-danger"></span>
@@ -44,7 +44,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label asp-for="WorkoutType" class="form-label">
-                                        <i class="fas fa-dumbbell me-2"></i>Antrenman Türü
+                                        💪 Antrenman Türü
                                     </label>
                                     <select asp-for="WorkoutType" class="form-control">
                                         <option value="">Tür seçin...</option>
@@ -56,7 +56,7 @@
                             </div>
                         </div>
 
-                        <h5 class="mt-4 mb-3"><i class="fas fa-running me-2"></i>Hareketler</h5>
+                        <h5 class="mt-4 mb-3">🏃 Hareketler</h5>
                         <div id="exercise-list">
                             @if (Model.WorkoutDetails != null && Model.WorkoutDetails.Count > 0)
                             {
@@ -89,7 +89,7 @@
                                             <input name="WorkoutDetails[@i].Weight" class="form-control" type="number" step="0.01" placeholder="Ağırlık (kg)" value="@Model.WorkoutDetails[i].Weight" />
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-danger btn-remove-exercise"><i class="fas fa-trash"></i></button>
+                                            <button type="button" class="btn btn-danger btn-remove-exercise">🗑️</button>
                                         </div>
                                     </div>
                                 }
@@ -117,31 +117,31 @@
                                         <input name="WorkoutDetails[0].Weight" class="form-control" type="number" step="0.01" placeholder="Ağırlık (kg)" />
                                     </div>
                                     <div class="col-md-2">
-                                        <button type="button" class="btn btn-danger btn-remove-exercise"><i class="fas fa-trash"></i></button>
+                                        <button type="button" class="btn btn-danger btn-remove-exercise">🗑️</button>
                                     </div>
                                 </div>
                             }
                         </div>
                         
                         <button type="button" class="btn btn-success mt-2" id="btn-add-exercise">
-                            <i class="fas fa-plus"></i> Hareket Ekle
+                            ➕ Hareket Ekle
                         </button>
 
                         <hr />
 
                         <div class="form-group">
                             <label asp-for="Notes" class="form-label">
-                                <i class="fas fa-sticky-note me-2"></i>Notlar (İsteğe bağlı)
+                                📝 Notlar (İsteğe bağlı)
                             </label>
                             <textarea asp-for="Notes" class="form-control" rows="4" placeholder="Antrenmanınız hakkında notlar ekleyin..."></textarea>
                         </div>
 
                         <div class="form-group text-center mt-4">
                             <button type="submit" class="btn btn-primary btn-lg me-3">
-                                <i class="fas fa-save me-2"></i>Antrenmanı Kaydet
+                                💾 Antrenmanı Kaydet
                             </button>
                             <a asp-action="Index" class="btn btn-secondary btn-lg">
-                                <i class="fas fa-arrow-left me-2"></i>Geri Dön
+                                ⬅️ Geri Dön
                             </a>
                         </div>
                     </form>
@@ -151,38 +151,34 @@
             <!-- İpuçları -->
             <div class="card mt-4">
                 <div class="card-header">
-                    <h4><i class="fas fa-lightbulb me-2"></i>Antrenman İpuçları</h4>
+                    <h4>💡 Antrenman İpuçları</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="d-flex align-items-start mb-3">
-                                <i class="fas fa-check-circle text-success me-2 mt-1"></i>
                                 <div>
-                                    <strong>Düzenli Kayıt:</strong>
+                                    <strong>✅ Düzenli Kayıt:</strong>
                                     <p class="small text-muted mb-0">Her antrenmanınızı kaydedin, ilerlemenizi takip edin.</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-start mb-3">
-                                <i class="fas fa-check-circle text-success me-2 mt-1"></i>
                                 <div>
-                                    <strong>Detaylı Notlar:</strong>
+                                    <strong>✅ Detaylı Notlar:</strong>
                                     <p class="small text-muted mb-0">Hangi egzersizleri yaptığınızı not edin.</p>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="d-flex align-items-start mb-3">
-                                <i class="fas fa-check-circle text-success me-2 mt-1"></i>
                                 <div>
-                                    <strong>Hedef Belirleme:</strong>
+                                    <strong>✅ Hedef Belirleme:</strong>
                                     <p class="small text-muted mb-0">Kendinize gerçekçi hedefler koyun.</p>
                                 </div>
                             </div>
                             <div class="d-flex align-items-start">
-                                <i class="fas fa-check-circle text-success me-2 mt-1"></i>
                                 <div>
-                                    <strong>Tutarlılık:</strong>
+                                    <strong>✅ Tutarlılık:</strong>
                                     <p class="small text-muted mb-0">Düzenli antrenman yapmaya odaklanın.</p>
                                 </div>
                             </div>
@@ -229,7 +225,7 @@
                     <input name="WorkoutDetails[${exerciseIndex}].Weight" class="form-control" type="number" step="0.01" placeholder="Ağırlık (kg)" />
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-danger btn-remove-exercise"><i class="fas fa-trash"></i></button>
+                    <button type="button" class="btn btn-danger btn-remove-exercise">🗑️</button>
                 </div>
             `;
             document.getElementById('exercise-list').appendChild(row);

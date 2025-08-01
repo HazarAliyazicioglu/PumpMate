@@ -13,12 +13,15 @@
     .exercise-item {
         padding: 8px;
         border-radius: 6px;
-        background-color: #f8f9fa;
-        border-left: 3px solid #007bff;
+        background-color: var(--hover-bg);
+        border-left: 3px solid var(--primary-color);
+        margin-bottom: 8px;
+        transition: var(--transition);
     }
     
     .exercise-item:hover {
-        background-color: #e9ecef;
+        background-color: var(--border-color);
+        transform: translateX(5px);
     }
     
     .table-responsive {
@@ -34,90 +37,228 @@
         vertical-align: top;
         padding: 12px 8px;
     }
+    
+    .workout-card {
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        margin-bottom: 1rem;
+        transition: var(--transition);
+    }
+    
+    .workout-card:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-hover);
+    }
+    
+    .workout-header {
+        background: var(--gradient-primary);
+        color: var(--white);
+        padding: 1rem;
+        border-radius: var(--border-radius) var(--border-radius) 0 0;
+    }
+    
+    .workout-body {
+        padding: 1.5rem;
+        background: var(--card-bg);
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .quick-actions {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow);
+    }
+    
+    .action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        border-radius: var(--border-radius);
+        text-decoration: none;
+        color: var(--text-color);
+        background: var(--hover-bg);
+        transition: var(--transition);
+        border: 1px solid var(--border-color);
+    }
+    
+    .action-btn:hover {
+        background: var(--primary-color);
+        color: var(--white);
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+    
+    .filter-section {
+        background: var(--card-bg);
+        border-radius: var(--border-radius);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: var(--shadow);
+    }
 </style>
 
-
-
 <div class="container">
-    <!-- Yeni Antrenman Ekle Butonu - Her zaman görünür -->
-    <div class="row mb-5">
+    <!-- Başlık ve Hızlı Eylemler -->
+    <div class="row mb-4">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center py-4">
-                <h2 class="mb-0"><i class="fas fa-dumbbell me-2"></i>Antrenmanlarım</h2>
+                <div>
+                    <h2 class="mb-0">
+                        💪 Antrenmanlarım
+                    </h2>
+                    <p class="text-muted mb-0">Fitness yolculuğunuzu takip edin ve hedeflerinize ulaşın</p>
+                </div>
                 <a asp-action="Create" class="btn btn-primary btn-lg">
-                    <i class="fas fa-plus me-2"></i>Yeni Antrenman Ekle
+                    ➕ Yeni Antrenman
                 </a>
             </div>
         </div>
     </div>
 
-    <div class="row mb-5">
-        <div class="col-md-4">
-            <div class="stats-card">
-                <i class="fas fa-dumbbell fa-3x text-primary mb-3"></i>
-                <div class="stats-number">@Model.Count</div>
-                <div class="stats-label">Toplam Antrenman</div>
-            </div>
+    <!-- İstatistikler -->
+    <div class="stats-grid">
+        <div class="stats-card">
+            <div class="stats-number">@Model.Count</div>
+            <div class="stats-label">Toplam Antrenman</div>
         </div>
-        <div class="col-md-4">
-            <div class="stats-card">
-                <i class="fas fa-calendar-check fa-3x text-success mb-3"></i>
-                <div class="stats-number">@Model.Count(w => w.Date >= DateTime.Today.AddDays(-30))</div>
-                <div class="stats-label">Bu Ay</div>
-            </div>
+        <div class="stats-card">
+            <div class="stats-number">@Model.Count(w => w.Date >= DateTime.Today.AddDays(-30))</div>
+            <div class="stats-label">Bu Ay</div>
         </div>
-        <div class="col-md-4">
-            <div class="stats-card">
-                <i class="fas fa-fire fa-3x text-danger mb-3"></i>
-                <div class="stats-number">@Model.Count(w => w.Date >= DateTime.Today.AddDays(-7))</div>
-                <div class="stats-label">Günlük Streak</div>
+        <div class="stats-card">
+            <div class="stats-number">@Model.Count(w => w.Date >= DateTime.Today.AddDays(-7))</div>
+            <div class="stats-label">Bu Hafta</div>
+        </div>
+        <div class="stats-card">
+            <div class="stats-number">@Model.Count(w => w.Date >= DateTime.Today.AddDays(-1))</div>
+            <div class="stats-label">Dün</div>
+        </div>
+    </div>
+
+    <!-- Hızlı Eylemler -->
+    <div class="quick-actions">
+        <h4 class="mb-3">
+            ⚡ Hızlı Eylemler
+        </h4>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <a href="#" class="action-btn" onclick="quickWorkout('Gym')">
+                    <div class="text-center">
+                        <div>Gym Antrenmanı</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a href="#" class="action-btn" onclick="quickWorkout('Home')">
+                    <div class="text-center">
+                        <div>Ev Antrenmanı</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a href="#" class="action-btn" onclick="quickWorkout('Cardio')">
+                    <div class="text-center">
+                        <div>Kardiyo</div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-3 mb-3">
+                <a href="#" class="action-btn" onclick="quickWorkout('Yoga')">
+                    <div class="text-center">
+                        <div>Yoga/Esneme</div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
+
     @if (Model.Count == 0)
     {
         <div class="card">
             <div class="card-body text-center py-5">
-                <i class="fas fa-dumbbell fa-5x text-muted mb-4"></i>
                 <h3>Henüz hiç antrenman eklenmemiş</h3>
                 <p class="text-muted mb-4">İlk antrenmanınızı ekleyerek fitness yolculuğunuza başlayın!</p>
                 <a asp-action="Create" class="btn btn-primary btn-lg">
-                    <i class="fas fa-plus me-2"></i>İlk Antrenmanımı Ekle
+                    ➕ İlk Antrenmanımı Ekle
                 </a>
             </div>
         </div>
     }
     else
     {
+        <!-- Filtreler -->
+        <div class="filter-section">
+            <h4 class="mb-3">
+                🔍 Filtreler
+            </h4>
+            <div class="row">
+                <div class="col-md-3 mb-3">
+                    <select class="form-select" id="workoutTypeFilter">
+                        <option value="">Tüm Türler</option>
+                        <option value="Gym">Gym</option>
+                        <option value="Home">Ev</option>
+                        <option value="Cardio">Kardiyo</option>
+                        <option value="Yoga">Yoga</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <select class="form-select" id="dateFilter">
+                        <option value="">Tüm Tarihler</option>
+                        <option value="today">Bugün</option>
+                        <option value="week">Bu Hafta</option>
+                        <option value="month">Bu Ay</option>
+                    </select>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <input type="text" class="form-control" id="searchFilter" placeholder="Egzersiz ara...">
+                </div>
+                <div class="col-md-3 mb-3">
+                    <button class="btn btn-outline-secondary w-100" onclick="clearFilters()">
+                        ❌ Filtreleri Temizle
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Antrenman Listesi -->
         <div class="card">
             <div class="card-header">
-                <h3><i class="fas fa-list me-2"></i>Antrenman Listesi</h3>
+                <h3>
+                    📋 Antrenman Listesi
+                </h3>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
-                    <table class="table table-hover mb-0">
+                    <table class="table table-hover mb-0" id="workoutTable">
                         <thead>
                             <tr>
-                                <th><i class="fas fa-calendar me-2"></i>Tarih</th>
-                                <th><i class="fas fa-dumbbell me-2"></i>Tür</th>
-                                <th><i class="fas fa-dumbbell me-2"></i>Egzersizler</th>
-                                <th><i class="fas fa-sticky-note me-2"></i>Notlar</th>
-                                <th><i class="fas fa-cogs me-2"></i>İşlemler</th>
+                                <th>📅 Tarih</th>
+                                <th>💪 Tür</th>
+                                <th>💪 Egzersizler</th>
+                                <th>📝 Notlar</th>
+                                <th>⚙️ İşlemler</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var workout in Model)
                             {
-                                <tr>
+                                <tr class="workout-row" data-type="@workout.WorkoutType" data-date="@workout.Date.ToString("yyyy-MM-dd")">
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <i class="fas fa-calendar-day text-primary me-2"></i>
                                             <strong>@workout.Date.ToShortDateString()</strong>
                                         </div>
                                     </td>
                                     <td>
-                                        <span class="badge bg-@(workout.WorkoutType == "Gym" ? "primary" : "success") rounded-pill">
-                                            <i class="fas fa-@(workout.WorkoutType == "Gym" ? "building" : "home") me-1"></i>
+                                        <span class="badge bg-@(workout.WorkoutType == "Gym" ? "primary" : workout.WorkoutType == "Home" ? "success" : workout.WorkoutType == "Cardio" ? "warning" : "info") rounded-pill">
                                             @workout.WorkoutType
                                         </span>
                                     </td>
@@ -127,7 +268,7 @@
                                             <div class="exercise-list">
                                                 @foreach (var detail in workout.WorkoutDetails)
                                                 {
-                                                    <div class="exercise-item mb-2">
+                                                    <div class="exercise-item">
                                                         <div class="d-flex justify-content-between align-items-center">
                                                             <div>
                                                                 <strong class="text-primary">@detail.ExerciseName</strong>
@@ -167,10 +308,10 @@
                                     <td>
                                         <div class="btn-group" role="group">
                                             <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@workout.Id" title="Düzenle">
-                                                <i class="fas fa-edit"></i>
+                                                ✏️
                                             </a>
                                             <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@workout.Id" title="Sil">
-                                                <i class="fas fa-trash"></i>
+                                                🗑️
                                             </a>
                                         </div>
                                     </td>
@@ -182,36 +323,100 @@
             </div>
         </div>
 
-        <!-- İstatistikler -->
+        <!-- Detaylı İstatistikler -->
         <div class="row mt-4">
             <div class="col-md-3">
                 <div class="stats-card">
-                    <i class="fas fa-calendar-check fa-2x text-success mb-2"></i>
-                    <div class="stats-number">@Model.Count(w => w.Date >= DateTime.Today.AddDays(-30))</div>
-                    <div class="stats-label">Bu Ay</div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="stats-card">
-                    <i class="fas fa-building fa-2x text-primary mb-2"></i>
                     <div class="stats-number">@Model.Count(w => w.WorkoutType == "Gym")</div>
                     <div class="stats-label">Gym Antrenmanı</div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stats-card">
-                    <i class="fas fa-home fa-2x text-success mb-2"></i>
                     <div class="stats-number">@Model.Count(w => w.WorkoutType == "Home")</div>
                     <div class="stats-label">Ev Antrenmanı</div>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="stats-card">
-                    <i class="fas fa-fire fa-2x text-danger mb-2"></i>
-                    <div class="stats-number">@Model.Count(w => w.Date >= DateTime.Today.AddDays(-7))</div>
-                    <div class="stats-label">Bu Hafta</div>
+                    <div class="stats-number">@Model.Count(w => w.WorkoutType == "Cardio")</div>
+                    <div class="stats-label">Kardiyo</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-number">@Model.Count(w => w.WorkoutType == "Yoga")</div>
+                    <div class="stats-label">Yoga/Esneme</div>
                 </div>
             </div>
         </div>
     }
 </div>
+
+<script>
+function quickWorkout(type) {
+    // Hızlı antrenman oluşturma fonksiyonu
+    window.location.href = `/Workout/Create?type=${type}`;
+}
+
+function clearFilters() {
+    document.getElementById('workoutTypeFilter').value = '';
+    document.getElementById('dateFilter').value = '';
+    document.getElementById('searchFilter').value = '';
+    filterWorkouts();
+}
+
+function filterWorkouts() {
+    const typeFilter = document.getElementById('workoutTypeFilter').value;
+    const dateFilter = document.getElementById('dateFilter').value;
+    const searchFilter = document.getElementById('searchFilter').value.toLowerCase();
+    
+    const rows = document.querySelectorAll('.workout-row');
+    
+    rows.forEach(row => {
+        let show = true;
+        
+        // Tür filtresi
+        if (typeFilter && row.dataset.type !== typeFilter) {
+            show = false;
+        }
+        
+        // Tarih filtresi
+        if (dateFilter) {
+            const workoutDate = new Date(row.dataset.date);
+            const today = new Date();
+            
+            if (dateFilter === 'today') {
+                if (workoutDate.toDateString() !== today.toDateString()) {
+                    show = false;
+                }
+            } else if (dateFilter === 'week') {
+                const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+                if (workoutDate < weekAgo) {
+                    show = false;
+                }
+            } else if (dateFilter === 'month') {
+                const monthAgo = new Date(today.getTime() - 30 * 24 * 60 * 60 * 1000);
+                if (workoutDate < monthAgo) {
+                    show = false;
+                }
+            }
+        }
+        
+        // Arama filtresi
+        if (searchFilter) {
+            const exerciseText = row.textContent.toLowerCase();
+            if (!exerciseText.includes(searchFilter)) {
+                show = false;
+            }
+        }
+        
+        row.style.display = show ? '' : 'none';
+    });
+}
+
+// Event listeners
+document.getElementById('workoutTypeFilter').addEventListener('change', filterWorkouts);
+document.getElementById('dateFilter').addEventListener('change', filterWorkouts);
+document.getElementById('searchFilter').addEventListener('input', filterWorkouts);
+</script>
