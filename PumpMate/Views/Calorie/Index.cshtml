@@ -1,0 +1,296 @@
+@model PumpMate.Models.CalorieViewModel
+
+@{
+    ViewData["Title"] = "Kalori Takibi";
+}
+
+<style>
+    .calorie-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+    .calorie-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border-radius: 15px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        color: #666;
+        font-weight: 500;
+    }
+    
+    .calories-consumed {
+        color: #dc3545;
+    }
+    
+    .calories-burned {
+        color: #28a745;
+    }
+    
+    .calorie-deficit {
+        color: #ffc107;
+    }
+    
+    .form-control {
+        border-radius: 12px;
+        border: 2px solid #e9ecef;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+    
+    .btn-add {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 12px;
+        padding: 12px 25px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-add:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .btn-delete {
+        background: #dc3545;
+        border: none;
+        border-radius: 8px;
+        padding: 6px 12px;
+        color: white;
+        font-size: 0.8rem;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-delete:hover {
+        background: #c82333;
+        transform: translateY(-1px);
+    }
+    
+    .entry-item {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid #667eea;
+    }
+    
+    .workout-calorie-item {
+        background: #e8f5e8;
+        border-radius: 10px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+        border-left: 4px solid #28a745;
+    }
+    
+    .exercise-calorie-item {
+        background: white;
+        border-radius: 8px;
+        padding: 0.75rem;
+        margin-bottom: 0.5rem;
+        border-left: 3px solid #28a745;
+    }
+    
+    .alert {
+        border-radius: 12px;
+        border: none;
+        padding: 1rem 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+</style>
+
+<div class="calorie-container">
+    <div class="container">
+        <!-- Başlık -->
+        <div class="calorie-card">
+            <div class="text-center mb-4">
+                <h2><i class="fas fa-fire me-2"></i>Kalori Takibi</h2>
+                <p class="text-muted">Günlük kalori alımınızı ve antrenmanlarda yaktığınız kalorileri takip edin</p>
+            </div>
+
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success">
+                    <i class="fas fa-check-circle me-2"></i>@TempData["Message"]
+                </div>
+            }
+
+            <!-- İstatistikler -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number calories-consumed">@Model.TotalCaloriesConsumed</div>
+                    <div class="stat-label">Günlük Alınan Kalori</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number calories-burned">@Model.TotalCaloriesBurned</div>
+                    <div class="stat-label">Günlük Yakılan Kalori</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number calorie-deficit">@Model.CalorieDeficit</div>
+                    <div class="stat-label">Günlük Kalori Açığı</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">@Model.WeeklyCalorieDeficit</div>
+                    <div class="stat-label">Haftalık Kalori Açığı</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kalori Ekleme Formu -->
+        <div class="calorie-card">
+            <h4><i class="fas fa-plus me-2"></i>Yeni Kalori Girişi</h4>
+            <form asp-action="AddEntry" method="post">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-utensils me-2"></i>Yemek Adı
+                            </label>
+                            <input name="FoodName" class="form-control" placeholder="Örn: Tavuk Göğsü" required />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-fire me-2"></i>Kalori
+                            </label>
+                            <input name="Calories" class="form-control" type="number" placeholder="250" required />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-weight me-2"></i>Miktar (g)
+                            </label>
+                            <input name="Quantity" class="form-control" type="number" placeholder="100" />
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="form-label">&nbsp;</label>
+                            <button type="submit" class="btn btn-add text-white w-100">
+                                <i class="fas fa-plus me-2"></i>Ekle
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Günlük Kalori Girişleri -->
+        <div class="calorie-card">
+            <h4><i class="fas fa-list me-2"></i>Bugünkü Kalori Girişleri</h4>
+            @if (Model.CalorieEntries.Any())
+            {
+                @foreach (var entry in Model.CalorieEntries)
+                {
+                    <div class="entry-item">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong class="text-primary">@entry.FoodName</strong>
+                                @if (entry.Quantity.HasValue)
+                                {
+                                    <small class="text-muted ms-2">(@entry.Quantity g)</small>
+                                }
+                                @if (!string.IsNullOrEmpty(entry.Notes))
+                                {
+                                    <small class="text-muted ms-2">- @entry.Notes</small>
+                                }
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <span class="badge bg-danger me-2">@entry.Calories kcal</span>
+                                <form asp-action="DeleteEntry" method="post" style="display: inline;">
+                                    <input type="hidden" name="id" value="@entry.Id" />
+                                    <button type="submit" class="btn btn-delete" onclick="return confirm('Bu kalori girişini silmek istediğinizden emin misiniz?')">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center text-muted py-4">
+                    <i class="fas fa-utensils fa-3x mb-3"></i>
+                    <p>Henüz bugün için kalori girişi yapılmamış</p>
+                </div>
+            }
+        </div>
+
+        <!-- Antrenman Kalori Hesaplamaları -->
+        <div class="calorie-card">
+            <h4><i class="fas fa-dumbbell me-2"></i>Antrenman Kalori Hesaplamaları</h4>
+            @if (Model.WorkoutCalories.Any())
+            {
+                @foreach (var workout in Model.WorkoutCalories.Take(5))
+                {
+                    <div class="workout-calorie-item">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div>
+                                <strong class="text-success">@workout.Date.ToShortDateString() - @workout.WorkoutType</strong>
+                            </div>
+                            <span class="badge bg-success">@workout.TotalCaloriesBurned kcal yakıldı</span>
+                        </div>
+                        @foreach (var exercise in workout.Exercises)
+                        {
+                            <div class="exercise-calorie-item">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@exercise.ExerciseName</strong>
+                                        <small class="text-muted ms-2">@exercise.SetCount set x @exercise.Reps tekrar</small>
+                                        @if (exercise.Weight.HasValue)
+                                        {
+                                            <small class="text-muted ms-2">(@exercise.Weight kg)</small>
+                                        }
+                                    </div>
+                                    <span class="badge bg-info">@exercise.CaloriesBurned kcal</span>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center text-muted py-4">
+                    <i class="fas fa-dumbbell fa-3x mb-3"></i>
+                    <p>Henüz antrenman kaydı bulunmuyor</p>
+                </div>
+            }
+        </div>
+    </div>
+</div> 

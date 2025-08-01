@@ -1,0 +1,156 @@
+﻿@model PumpMate.Models.User
+
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<style>
+    .register-container {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .register-card {
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        width: 100%;
+        max-width: 400px;
+    }
+    
+    .register-header {
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+    
+    .register-header h2 {
+        color: #333;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .register-header p {
+        color: #666;
+        font-size: 0.9rem;
+    }
+    
+    .form-control {
+        border-radius: 8px;
+        border: 2px solid #e9ecef;
+        padding: 12px 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+    
+    .btn-register {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-register:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .login-link {
+        text-align: center;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid #e9ecef;
+    }
+    
+    .login-link a {
+        color: #667eea;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        padding: 8px 16px;
+        border-radius: 6px;
+        display: inline-block;
+    }
+    
+    .login-link a:hover {
+        color: #764ba2;
+        background-color: rgba(102, 126, 234, 0.1);
+        text-decoration: none;
+    }
+    
+    .alert {
+        border-radius: 8px;
+        border: none;
+    }
+    
+    .validation-summary {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 1rem;
+    }
+    
+    .field-validation-error {
+        color: #dc3545;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+    }
+</style>
+
+<div class="register-container">
+    <div class="register-card">
+        <div class="register-header">
+            <h2><i class="fas fa-user-plus me-2"></i>PumpMate</h2>
+            <p>Fitness yolculuğunuza başlayın</p>
+        </div>
+        
+        <form asp-action="Register" method="post">
+            <div asp-validation-summary="ModelOnly" class="validation-summary"></div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="Username" class="form-label">
+                    <i class="fas fa-user me-2"></i>Kullanıcı Adı
+                </label>
+                <input asp-for="Username" class="form-control" placeholder="Kullanıcı adınızı girin" />
+                <span asp-validation-for="Username" class="field-validation-error"></span>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label asp-for="Password" class="form-label">
+                    <i class="fas fa-lock me-2"></i>Şifre
+                </label>
+                <input asp-for="Password" class="form-control" type="password" placeholder="Güçlü bir şifre oluşturun" />
+                <span asp-validation-for="Password" class="field-validation-error"></span>
+            </div>
+            
+            <button type="submit" class="btn btn-register text-white w-100">
+                <i class="fas fa-user-plus me-2"></i>Kayıt Ol
+            </button>
+        </form>
+
+        <div class="login-link">
+            <span class="text-muted">Zaten hesabınız var mı? </span>
+            <a asp-action="Login" asp-controller="Auth">
+                <i class="fas fa-sign-in-alt me-1"></i>Giriş Yap
+            </a>
+        </div>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="alert alert-danger mt-3">
+                <i class="fas fa-exclamation-triangle me-2"></i>@ViewBag.Error
+            </div>
+        }
+    </div>
+</div>

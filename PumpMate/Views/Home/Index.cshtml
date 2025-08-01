@@ -1,0 +1,152 @@
+﻿@model List<PumpMate.Models.Workout>
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1>PumpMate'e Hoş Geldiniz!</h1>
+        <p>Fitness yolculuğunuzda yanınızdayız. Antrenmanlarınızı takip edin, hedeflerinize ulaşın!</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="stats-card">
+                <i class="fas fa-dumbbell fa-3x text-primary mb-3"></i>
+                <div class="stats-number">@Model.Count</div>
+                <div class="stats-label">Toplam Antrenman</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stats-card">
+                <i class="fas fa-arrow-trend-down fa-3x text-success mb-3"></i>
+                <div class="stats-number"> @ViewBag.CalorieDeficit</div>
+                <div class="stats-label">Günlük Kalori Açığı</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stats-card">
+                <i class="fas fa-fire fa-3x text-danger mb-3"></i>
+                <div class="stats-number">@Model.Count(w => w.Date >= DateTime.Today.AddDays(-7))</div>
+                <div class="stats-label">Streak</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-chart-line me-2"></i>Son Antrenmanlarınız</h3>
+                </div>
+                <div class="card-body">
+                    @if (Model.Count == 0)
+                    {
+                        <div class="text-center py-5">
+                            <i class="fas fa-dumbbell fa-4x text-muted mb-3"></i>
+                            <h4>Henüz antrenman eklenmemiş</h4>
+                            <p class="text-muted">İlk antrenmanınızı ekleyerek fitness yolculuğunuza başlayın!</p>
+                            <a asp-controller="Workout" asp-action="Create" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>İlk Antrenmanımı Ekle
+                            </a>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Tarih</th>
+                                        <th>Tür</th>
+                                        <th>Notlar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var workout in Model)
+                                    {
+                                        <tr>
+                                            <td>@workout.Date.ToShortDateString()</td>
+                                            <td>@workout.WorkoutType</td>
+                                            <td>@(string.IsNullOrEmpty(workout.Notes) ? "-" : workout.Notes)</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-lightbulb me-2"></i>Fitness İpuçları</h3>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <h6><i class="fas fa-check-circle text-success me-2"></i>Düzenli Antrenman</h6>
+                        <p class="small text-muted">Haftada en az 3-4 gün antrenman yapın.</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-check-circle text-success me-2"></i>Su Tüketimi</h6>
+                        <p class="small text-muted">Günde en az 2-3 litre su için.</p>
+                    </div>
+                    <div class="mb-3">
+                        <h6><i class="fas fa-check-circle text-success me-2"></i>Dinlenme</h6>
+                        <p class="small text-muted">Kaslarınızın iyileşmesi için yeterli dinlenme alın.</p>
+                    </div>
+                    <div>
+                        <h6><i class="fas fa-check-circle text-success me-2"></i>Beslenme</h6>
+                        <p class="small text-muted">Protein ağırlıklı, dengeli beslenin.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-rocket me-2"></i>Hızlı Başlangıç</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="p-3">
+                                <i class="fas fa-user-plus fa-2x text-primary mb-2"></i>
+                                <h5>Hesap Oluştur</h5>
+                                <p class="small text-muted">Ücretsiz hesabınızı oluşturun</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="p-3">
+                                <i class="fas fa-dumbbell fa-2x text-success mb-2"></i>
+                                <h5>Antrenman Ekle</h5>
+                                <p class="small text-muted">İlk antrenmanınızı kaydedin</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="p-3">
+                                <i class="fas fa-chart-bar fa-2x text-warning mb-2"></i>
+                                <h5>Takip Et</h5>
+                                <p class="small text-muted">İlerlemenizi izleyin</p>
+                            </div>
+                        </div>
+                        <div class="col-md-3 text-center mb-3">
+                            <div class="p-3">
+                                <i class="fas fa-trophy fa-2x text-danger mb-2"></i>
+                                <h5>Hedeflere Ulaş</h5>
+                                <p class="small text-muted">Fitness hedeflerinizi gerçekleştirin</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+﻿@{
+    ViewData["Title"] = "Kullanıcı Adını Unuttun";
+}
+
+<div class="container mt-5">
+    <h2>Kullanıcı Adını Unuttun</h2>
+    <form method="post">
+        <div class="form-group">
+            <label>Şifrenizi girin:</label>
+            <input type="password" name="password" class="form-control" required />
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Göster</button>
+    </form>
+
+    <a href="@Url.Action("Login", "Auth")" class="btn btn-secondary mt-2">🏠 Giriş Yap</a>
+
+    @if (ViewBag.Username != null)
+    {
+        <div class="alert alert-success mt-3">
+            Kullanıcı adınız: <strong>@ViewBag.Username</strong>
+        </div>
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+    }
+</div>

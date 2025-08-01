@@ -1,0 +1,110 @@
+﻿@model PumpMate.Models.Workout
+
+@{
+    ViewData["Title"] = "Antrenman Düzenle";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-edit me-3"></i>Antrenman Düzenle</h1>
+        <p>Antrenman bilgilerinizi güncelleyin</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fas fa-dumbbell me-2"></i>Antrenman Bilgileri</h3>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="Date" class="form-label">
+                                        <i class="fas fa-calendar me-2"></i>Tarih
+                                    </label>
+                                    <input asp-for="Date" class="form-control" type="date" />
+                                    <span asp-validation-for="Date" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label asp-for="WorkoutType" class="form-label">
+                                        <i class="fas fa-dumbbell me-2"></i>Antrenman Türü
+                                    </label>
+                                    <select asp-for="WorkoutType" class="form-control">
+                                        <option value="Gym">
+                                            <i class="fas fa-building"></i> Gym
+                                        </option>
+                                        <option value="Home">
+                                            <i class="fas fa-home"></i> Ev
+                                        </option>
+                                    </select>
+                                    <span asp-validation-for="WorkoutType" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="Notes" class="form-label">
+                                <i class="fas fa-sticky-note me-2"></i>Notlar (İsteğe bağlı)
+                            </label>
+                            <textarea asp-for="Notes" class="form-control" rows="4" 
+                                      placeholder="Antrenmanınız hakkında notlar ekleyin..."></textarea>
+                        </div>
+
+                        <div class="form-group text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg me-3">
+                                <i class="fas fa-save me-2"></i>Güncelle
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary btn-lg">
+                                <i class="fas fa-arrow-left me-2"></i>İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Mevcut Bilgiler -->
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h4><i class="fas fa-info-circle me-2"></i>Mevcut Antrenman Bilgileri</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <i class="fas fa-calendar-day fa-2x text-primary mb-2"></i>
+                                <h6>Tarih</h6>
+                                <p class="mb-0">@Model.Date.ToShortDateString()</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <i class="fas fa-@(Model.WorkoutType == "Gym" ? "building" : "home") fa-2x text-success mb-2"></i>
+                                <h6>Tür</h6>
+                                <p class="mb-0">@Model.WorkoutType</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="text-center p-3">
+                                <i class="fas fa-sticky-note fa-2x text-warning mb-2"></i>
+                                <h6>Notlar</h6>
+                                <p class="mb-0">@(string.IsNullOrEmpty(Model.Notes) ? "Not yok" : Model.Notes)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
