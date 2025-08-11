@@ -1,96 +1,92 @@
 # 🏋️ PumpMate - Fitness Tracking Application
 
-PumpMate, kullanıcıların antrenman ve kalori takibini yapabilecekleri kapsamlı bir web uygulamasıdır.
+PumpMate is a comprehensive web application that allows users to track their workouts and calorie intake.
+## ✨ Features
 
-## ✨ Özellikler
+- 🔐 **Secure User Authentication**
 
-- 🔐 **Güvenli Kullanıcı Kimlik Doğrulama**
-- 💪 **Antrenman Takibi** (Gym, Home, Cardio, Yoga)
-- 🔥 **Kalori Hesaplama** (Alım ve Yakım)
-- 📊 **İstatistikler ve Raporlama**
-- 🌙 **Dark/Light Mode Desteği**
-- 📱 **Responsive Tasarım**
-- 🎯 **Kişiselleştirilmiş Fitness Rehberliği**
+- 💪 **Workout Tracking (Gym, Home, Cardio, Yoga)**
 
-## 🚀 Hızlı Başlangıç
+- 🔥 **Calorie Calculation (Intake and Burn)**
 
-### Yöntem 1: Batch Dosyası ile (Önerilen)
-1. `run-project.bat` dosyasına çift tıklayın
-2. Uygulama otomatik olarak başlayacak
-3. Tarayıcınızda `https://localhost:7001` adresine gidin
+- 📊 **Statistics and Reporting**
 
-### Yöntem 2: Manuel Kurulum
-```bash
-# Bağımlılıkları yükle
-dotnet restore
+- 🌙 **Dark/Light Mode Support**
 
-# Veritabanını güncelle
-dotnet ef database update
+- 📱 **Responsive Design**
 
-# Uygulamayı çalıştır
-dotnet run
-```
+- 🎯 **Personalized Fitness Guidance**
 
-## 📋 Gereksinimler
+## 🚀 Quick Start
+### Method 1: Using the Batch File (Recommended)
 
-- .NET 6.0 veya üzeri
-- SQL Server (LocalDB dahil)
-- Modern web tarayıcısı
+1. Double-click the run-project.bat file
+2. The application will start automatically
+3. Open https://localhost:7001 in your browser
 
-## 🛠️ Teknolojiler
+### Method 2: Manual Setup
+
+    # Install dependencies
+    dotnet restore
+
+    # Update the database
+    dotnet ef database update
+
+    # Run the application
+    dotnet run
+
+## 📋 Requirements
+
+- .NET 6.0 or higher
+- SQL Server (including LocalDB)
+- Modern web browser
+
+## 🛠️ Technologies
 
 - **Backend**: ASP.NET Core MVC
-- **Veritabanı**: Entity Framework Core
+- **Database**: Entity Framework Core
 - **Frontend**: HTML5, CSS3, JavaScript
 - **UI Framework**: Bootstrap 5
-- **Tema**: Dark/Light Mode CSS Variables
+- **Theme**: Dark/Light Mode CSS Variables
 
-## 📁 Proje Yapısı
+## 📁 Project Structure
 
-```
-PumpMate/
-├── Controllers/          # İş mantığı
-├── Models/              # Veri modelleri
-├── Views/               # Kullanıcı arayüzü
-├── Data/                # Veritabanı bağlantısı
-├── Migrations/          # Veritabanı şemaları
-├── wwwroot/             # Statik dosyalar
-├── run-project.bat      # Hızlı başlatma
-└── README.md           # Bu dosya
-```
+    PumpMate/
+    ├── Controllers/          # Business logic
+    ├── Models/               # Data models
+    ├── Views/                # User interface
+    ├── Data/                 # Database connection
+    ├── Migrations/           # Database schemas
+    ├── wwwroot/              # Static files
+    ├── run-project.bat       # Quick launch script
+    └── README.md             # This file
 
-## 🎮 Kullanım
+## 🎮 Usage
 
-1. **Kayıt Ol**: Yeni hesap oluşturun
-2. **Giriş Yap**: Hesabınıza giriş yapın
-3. **Antrenman Ekle**: Egzersizlerinizi kaydedin
-4. **Kalori Takip**: Günlük kalori alımınızı girin
-5. **İstatistikleri İncele**: İlerlemenizi takip edin
+1. **Sign Up**: Create a new account
+2. **Log In**: Access your account
+3. **Add Workout**: Record your exercises
+4. **Track Calories**: Log your daily calorie intake
+5. **Check Statistics**: Monitor your progress
 
-## 🔧 Geliştirme
+## 🔧 Development
+### Adding a New Feature
 
-### Yeni Özellik Ekleme
-1. Model sınıfını oluşturun
-2. Controller ekleyin
-3. View dosyalarını oluşturun
-4. Migration ekleyin: `dotnet ef migrations add FeatureName`
+1. Create the model class
+2. Add the controller
+3. Create the view files
+4. Add a migration: dotnet ef migrations add FeatureName
 
-### Veritabanı Güncelleme
-```bash
-dotnet ef migrations add MigrationName
-dotnet ef database update
-```
+### Updating the Database
 
-## 📞 Destek
+    dotnet ef migrations add MigrationName
+    dotnet ef database update
 
-Herhangi bir sorun yaşarsanız:
-- GitHub Issues kullanın
-- Proje dokümantasyonunu inceleyin
+## 📞 Support
 
-## 📄 Lisans
+If you encounter any issues:
 
-Bu proje MIT lisansı altında lisanslanmıştır.
-
+- Use GitHub Issues
+- Review the project documentation
 ---
-
-**PumpMate ile fitness yolculuğunuzu takip edin! 💪** 
+Track your fitness journey with PumpMate! 💪
